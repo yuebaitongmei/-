@@ -7,12 +7,13 @@ import db.dbconnector;
 
 public class update_empleyee extends dbconnector {
 	public   void  update(int  id,String name,String passwd){
+		EnDecode code=new EnDecode();
 		 String sql="insert into  user_employee  values(?,?,?) ";
 		try {
 			PreparedStatement operator=link.prepareStatement(sql);
 			operator.setInt(1,id);
 			operator.setString(2, name);
-			operator.setString(3, passwd);
+			operator.setString(3,code.encode( passwd));
 			operator.execute();
 		} catch (SQLException e) {
 			// TODO: handle exception

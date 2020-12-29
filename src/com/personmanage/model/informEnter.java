@@ -9,6 +9,9 @@ import java.util.List;
 import db.dbconnector;
 
 public class informEnter extends dbconnector {
+	//保存人事信息
+	EnDecode code=new EnDecode();
+	
 	public String enterinform(inform info) {
 		String sql = "insert into person values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		String reString = "员工信息录入失败！";
@@ -16,7 +19,7 @@ public class informEnter extends dbconnector {
 		try {
 			operator = link.prepareStatement(sql);
 			operator.setInt(1, info.getId());
-			operator.setString(2, info.getSetpasswd());
+			operator.setString(2,code.encode(info.getSetpasswd()));
 			operator.setString(3, info.getAuthority());
 			operator.setString(4, info.getName());
 			operator.setString(5, info.getSex());
@@ -47,9 +50,12 @@ public class informEnter extends dbconnector {
 		return reString;
 	}
 
+	//修改人事信息
 	public String changeinform(inform info) {
 		String sql = "update person set name=?,birthday=?,sex=?,state=?,department=?,job=?,edu_level=?,email=?,tel=?,spcialty=?,address=?,remark=?  where id=?";
-		String reString = "员工信息修改失败！";
+		String sql2="update user_admin set name=? where id =?";
+		String sql3="update user_employee set name=? where id =?";
+		int flag=0;
 		PreparedStatement operator = null;
 		try {
 			operator = link.prepareStatement(sql);
@@ -68,9 +74,33 @@ public class informEnter extends dbconnector {
 			operator.setInt(13, info.getId());
 			int result = operator.executeUpdate();
 			if (result > 0) {
-				reString = "员工信息修改成功！";
+				flag++;
 			}
 		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		try {
+			operator=link.prepareStatement(sql2);
+			operator.setString(1, info.getName());
+			operator.setInt(2, info.getId());
+			int result = operator.executeUpdate();
+			if (result > 0) {
+				flag++;
+			}
+		} catch (SQLException  e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		try {
+			operator=link.prepareStatement(sql3);
+			operator.setString(1, info.getName());
+			operator.setInt(2, info.getId());
+			int result = operator.executeUpdate();
+			if (result > 0) {
+				flag++;
+			}
+		} catch (SQLException  e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
@@ -80,8 +110,12 @@ public class informEnter extends dbconnector {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return reString;
+		if(flag==2)
+		return"员工信息修改成功！" ;
+		else 
+		return"员工信息修改失败！";
 	}
+	//获取所有人事信息
 	public List<inform> getinformList() {
 		List<inform> relist = new ArrayList<inform>();
 		String sql = "select * from person";
@@ -119,7 +153,8 @@ public class informEnter extends dbconnector {
 		}
 		return relist;
 	}
-
+	
+	//查询员工信息
 	public List<inform> searchInform(String name) {
 		List<inform> relist = new ArrayList<inform>();
 		String sql = "select * from person where name=? ";
@@ -159,6 +194,7 @@ public class informEnter extends dbconnector {
 		return relist;
 	}
     
+	//搜索需要修改的人事信息
 	public inform searchInform(int id) {
 		inform temp=new inform();
 		String sql = "select * from person where id=? ";
@@ -195,6 +231,8 @@ public class informEnter extends dbconnector {
 		}
 		return temp;
 	}
+	
+	//授予管理员权限
 	public String impower(int ID, String name, String sex) {
 		String sql = "update person set authority='管理员' where id=? and name=? and sex=?";
 		String sql2 = "insert into user_admin select * from user_employee where id=? and name=?";
@@ -246,6 +284,7 @@ public class informEnter extends dbconnector {
 			return "授权失败！";
 	}
 
+	//取消管理员权限
 	public String deprivePower(int ID, String name, String sex) {
 		String sql = "update person set authority='员工'  where id=? and name=? and sex=?";
 		String sql2 = "insert into user_employee  select * from user_admin where id=? and name=?";
@@ -297,6 +336,7 @@ public class informEnter extends dbconnector {
 			return "解除失败！";
 	}
     
+	//删除信息
 	public String  deleteInform(int id) {
 		String res="删除失败！";
 		String sql="delete from person where id=?";
@@ -337,5 +377,4 @@ public class informEnter extends dbconnector {
 		}
 		return res;
 	}
-	
 }

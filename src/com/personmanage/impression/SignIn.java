@@ -32,6 +32,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import java.awt.Toolkit;
 
 public class SignIn extends JFrame {
 
@@ -60,12 +61,14 @@ public class SignIn extends JFrame {
 	 * Create the frame.
 	 */
 	public SignIn() {
+		setTitle("人事管理系统");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignIn.class.getResource("/picture/人事 (2).png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 506, 414);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-
+		setLocationRelativeTo(null);
 		JLabel TextLabel = new JLabel("人事管理系统");
 		TextLabel.setIcon(new ImageIcon(SignIn.class.getResource("/picture/人事 (2).png")));
 		TextLabel.setFont(new Font("微软雅黑", Font.BOLD, 22));
@@ -101,51 +104,67 @@ public class SignIn extends JFrame {
 
 		passwordField = new JPasswordField();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup()
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(119)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-												.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 112,
-														Short.MAX_VALUE)
-												.addPreferredGap(ComponentPlacement.RELATED))
-										.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblNewLabel_1)
-												.addGap(13))))
-						.addGroup(gl_contentPane.createSequentialGroup().addContainerGap().addComponent(lblNewLabel_2)
-								.addPreferredGap(ComponentPlacement.UNRELATED)))
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(119)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblNewLabel_1)
+									.addGap(13))))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNewLabel_2)
+							.addPreferredGap(ComponentPlacement.UNRELATED)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(UserTypecomboBox, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
 						.addComponent(userNametextField, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 140,
-										GroupLayout.PREFERRED_SIZE)))
-				.addGap(102))
-				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap(143, Short.MAX_VALUE)
-						.addComponent(TextLabel, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
-						.addGap(123))
-				.addGroup(gl_contentPane.createSequentialGroup().addGap(178)
-						.addComponent(SignInButton, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(197, Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup().addGap(38)
-				.addComponent(TextLabel, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE).addGap(18)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel).addComponent(
-						userNametextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup().addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(lblNewLabel_1))
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(18).addComponent(passwordField,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-				.addGap(18)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)))
+					.addGap(102))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(143, Short.MAX_VALUE)
+					.addComponent(TextLabel, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
+					.addGap(123))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(178)
+					.addComponent(SignInButton, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(197, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(38)
+					.addComponent(TextLabel, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel)
+						.addComponent(userNametextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNewLabel_1))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(18)
+							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(UserTypecomboBox, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE))
-				.addGap(32).addComponent(SignInButton).addContainerGap(57, Short.MAX_VALUE)));
+					.addGap(32)
+					.addComponent(SignInButton)
+					.addContainerGap(57, Short.MAX_VALUE))
+		);
 		contentPane.setLayout(gl_contentPane);
 	}
-
+	
+    //登录功能
 	protected void SigninConfirm(ActionEvent ae) {
 		String username = userNametextField.getText().toString();
 		String password = passwordField.getText().toString();

@@ -6,19 +6,21 @@ import java.sql.SQLException;
 import db.dbconnector;
 
 public class employeeLogin extends dbconnector {
+	EnDecode code=new EnDecode();
+	
 	public employee Login(employee em) {
 		String sqlstr = "select * from user_employee  where name=? and password=?";
 		employee resultEmployee = null;
 		try {
 			PreparedStatement operator = link.prepareStatement(sqlstr);
 			operator.setString(1, em.getName());
-			operator.setString(2, em.getPassword());
+			operator.setString(2, code.encode(em.getPassword()));
 			ResultSet dbResult = operator.executeQuery();
 			if (dbResult.next()) {
 				resultEmployee = new employee();
 				resultEmployee.setId(dbResult.getInt("id"));
 				resultEmployee.setName(dbResult.getString("name"));
-				resultEmployee.setPassword(dbResult.getString("password"));
+				resultEmployee.setPassword(code.decode(dbResult.getString("password")));
 			}
 		} catch (SQLException e) {
 			// TODO: handle exception
@@ -41,9 +43,9 @@ public class employeeLogin extends dbconnector {
 		PreparedStatement operator2 = null;
 		try {
 			operator = link.prepareStatement(sql);
-			operator.setString(1, newpassword);
+			operator.setString(1, code.encode(newpassword));
 			operator.setString(2, em.getName());
-			operator.setString(3, em.getPassword());
+			operator.setString(3,code.encode( em.getPassword()));
 			int result = operator.executeUpdate();
 			if (result > 0) {
 				resString = "密码修改成功！";
@@ -54,9 +56,9 @@ public class employeeLogin extends dbconnector {
 		}
 		try {
 			operator2 = link.prepareStatement(sql2);
-			operator2.setString(1, newpassword);
+			operator2.setString(1, code.encode(newpassword));
 			operator2.setString(2, em.getName());
-			operator2.setString(3, em.getPassword());
+			operator2.setString(3, code.encode(em.getPassword()));
 			int result = operator2.executeUpdate();
 			if (result <= 0) {
 				resString = "密码修改失败！";

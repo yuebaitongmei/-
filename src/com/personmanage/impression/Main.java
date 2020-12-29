@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.personmanage.model.Counter;
 import com.personmanage.model.Department;
+import com.personmanage.model.EnDecode;
 import com.personmanage.model.Job;
 import com.personmanage.model.Personnel;
 import com.personmanage.model.UserType;
@@ -56,6 +57,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
+import javax.swing.JTextArea;
 
 public class Main extends JFrame {
 
@@ -74,7 +76,6 @@ public class Main extends JFrame {
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private JTextField skilltextField = new JTextField();
 	private JTextField addresstextField = new JTextField();
-	private JTextField somethingtextField = new JTextField();
 	private JTextField IDtextField = new JTextField();
 	private JPasswordField seTpasswordField = new JPasswordField();
 	private JComboBox yearcomboBox = new JComboBox();
@@ -88,8 +89,10 @@ public class Main extends JFrame {
 	private JRadioButton isemRadioButton = new JRadioButton("T-员工\r\n");
 	private JRadioButton notemRadioButton = new JRadioButton("F-非员工\r\n");
 	private JTextField authoritytextField = new JTextField();
+	JButton enterinform = new JButton("确定");
 	Counter id = new Counter();
 	int ID = id.getCounter("P");
+	Integer i=new Integer(ID);
 	private JTable informtable = new JTable();
 	private JTable SearchInformtable = new JTable();
 	private JTextField searchNametextField = new JTextField();
@@ -128,6 +131,11 @@ public class Main extends JFrame {
 	JComboBox changemonth = new JComboBox();
 	JComboBox changeday = new JComboBox();
 	inform to_be_change = new inform();
+	JTextArea somethingtextField = new JTextArea();
+	private JTable personneltable;
+	private JTextField searchpersonnelID;
+	JButton refreshpersonnel = new JButton("重置");
+	JButton searchpersonnel = new JButton("查询记录");
 	/**
 	 * Launch the application.
 	 */
@@ -153,15 +161,16 @@ public class Main extends JFrame {
 		this.userType = userType;
 		this.userObject = userObject;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 716, 567);
+		setBounds(100, 100, 813, 567);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		tabbedPane.setBounds(-2, 5, 708, 528);
+		tabbedPane.setBounds(-2, 5, 862, 528);
 		contentPane.add(tabbedPane);
 
 		JDesktopPane desktopPane = new JDesktopPane();
@@ -171,7 +180,7 @@ public class Main extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(0, 0, 703, 495);
+		scrollPane.setBounds(0, 0, 800, 495);
 		desktopPane.add(scrollPane);
 
 		informtable.setModel(new DefaultTableModel(
@@ -184,209 +193,64 @@ public class Main extends JFrame {
 		informtable.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		informtable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane.setViewportView(informtable);
-
-		JDesktopPane desktopPane_7 = new JDesktopPane();
-		desktopPane_7.setBackground(UIManager.getColor("Button.background"));
-		tabbedPane.addTab("信息录入", new ImageIcon(Main.class.getResource("/picture/录入 (1).png")), desktopPane_7, null);
-
-		JLabel lblNewLabel_4 = new JLabel("姓名:");
-		lblNewLabel_4.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_4.setBounds(35, 32, 58, 24);
-		desktopPane_7.add(lblNewLabel_4);
-
-		nametextField.setBounds(83, 32, 90, 26);
-		desktopPane_7.add(nametextField);
-		nametextField.setColumns(10);
-
-		JLabel lblNewLabel_5 = new JLabel("出生日期:");
-		lblNewLabel_5.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_5.setBounds(218, 31, 102, 26);
-		desktopPane_7.add(lblNewLabel_5);
-
-		yearcomboBox.setModel(new DefaultComboBoxModel(
-				new String[] { "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980",
-						"1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992",
-						"1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002" }));
-		yearcomboBox.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-		yearcomboBox.setBounds(304, 33, 70, 24);
-		desktopPane_7.add(yearcomboBox);
-
-		JLabel lblNewLabel_6 = new JLabel("年\r\n");
-		lblNewLabel_6.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_6.setBounds(382, 36, 29, 20);
-		desktopPane_7.add(lblNewLabel_6);
-
-		monthcomboBox.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-		monthcomboBox.setModel(new DefaultComboBoxModel(
-				new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-		monthcomboBox.setBounds(410, 33, 70, 25);
-		desktopPane_7.add(monthcomboBox);
-
-		JLabel lblNewLabel_7 = new JLabel("月");
-		lblNewLabel_7.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_7.setBounds(490, 36, 46, 23);
-		desktopPane_7.add(lblNewLabel_7);
-
-		daycomboBox.setModel(new DefaultComboBoxModel(
-				new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
-						"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-		daycomboBox.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-		daycomboBox.setBounds(518, 32, 70, 26);
-		desktopPane_7.add(daycomboBox);
-
-		JLabel lblNewLabel_8 = new JLabel("日");
-		lblNewLabel_8.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_8.setBounds(598, 34, 58, 26);
-		desktopPane_7.add(lblNewLabel_8);
-
-		JLabel lblNewLabel_9 = new JLabel("所在部门:");
-		lblNewLabel_9.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_9.setBounds(35, 211, 102, 24);
-		desktopPane_7.add(lblNewLabel_9);
-		departmentcomboBox.setModel(new DefaultComboBoxModel(
-				new String[] { "--部门选择--", "总经办", "行政部", "人事部", "财务部", "技术部", "销售部", "客户服务部" }));
-
-		departmentcomboBox.setBounds(136, 211, 102, 24);
-		desktopPane_7.add(departmentcomboBox);
-
-		JLabel lblNewLabel_10 = new JLabel("职务:");
-		lblNewLabel_10.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_10.setBounds(270, 212, 78, 23);
-		desktopPane_7.add(lblNewLabel_10);
-		jobcomboBox.setModel(new DefaultComboBoxModel(new String[] { "--职务选择--", "总经理", "总经理助理", "办公室主任", "行政总监",
-				"行政经理", "行政助理", "行政专员", "人事部总监", "人事部经理", "人事专员", "首席财务官", "总会计师", "财务总监", "资金总监", "财务部经理", "审计主管",
-				"会计", "出纳员", "技术部经理", "项目经理", "工程师", "销售总监", "销售部经理", "文员", "销售员", "客户服务部经理", "客户服务员" }));
-
-		jobcomboBox.setBounds(317, 211, 107, 26);
-		desktopPane_7.add(jobcomboBox);
-
-		JLabel lblNewLabel_11 = new JLabel("性别:");
-		lblNewLabel_11.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_11.setBounds(35, 152, 58, 24);
-		desktopPane_7.add(lblNewLabel_11);
-
-		buttonGroup.add(manRadioButton);
-		manRadioButton.setBackground(UIManager.getColor("Button.background"));
-		manRadioButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		manRadioButton.setBounds(91, 151, 46, 27);
-		desktopPane_7.add(manRadioButton);
-
-		buttonGroup.add(womanRadioButton);
-		womanRadioButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		womanRadioButton.setBackground(UIManager.getColor("Button.background"));
-		womanRadioButton.setBounds(151, 148, 58, 33);
-		desktopPane_7.add(womanRadioButton);
-
-		JLabel lblNewLabel_12 = new JLabel("受教育程度:");
-		lblNewLabel_12.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_12.setBounds(434, 210, 102, 27);
-		desktopPane_7.add(lblNewLabel_12);
-		educomboBox.setModel(new DefaultComboBoxModel(
-				new String[] { "--教育程度--", "小学", "初中", "高中", "职高", "大本", "本科", "硕士", "博士", "博士后" }));
-
-		educomboBox.setBounds(546, 210, 102, 27);
-		desktopPane_7.add(educomboBox);
-
-		JLabel lblNewLabel_13 = new JLabel("联系电话:");
-		lblNewLabel_13.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_13.setBounds(270, 272, 89, 24);
-		desktopPane_7.add(lblNewLabel_13);
-
-		teltextField.setBounds(356, 272, 113, 27);
-		desktopPane_7.add(teltextField);
-		teltextField.setColumns(10);
-
-		JLabel lblNewLabel_14 = new JLabel("电子邮件:");
-		lblNewLabel_14.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_14.setBounds(36, 274, 83, 20);
-		desktopPane_7.add(lblNewLabel_14);
-
-		emailtextField.setBounds(136, 272, 90, 24);
-		desktopPane_7.add(emailtextField);
-		emailtextField.setColumns(10);
-
-		JLabel lblNewLabel_15 = new JLabel("当前状态:");
-		lblNewLabel_15.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_15.setBounds(218, 153, 78, 23);
-		desktopPane_7.add(lblNewLabel_15);
-
-		buttonGroup_1.add(isemRadioButton);
-		isemRadioButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		isemRadioButton.setBackground(UIManager.getColor("Button.background"));
-		isemRadioButton.setBounds(310, 153, 90, 23);
-		desktopPane_7.add(isemRadioButton);
-
-		buttonGroup_1.add(notemRadioButton);
-		notemRadioButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		notemRadioButton.setBackground(UIManager.getColor("Button.background"));
-		notemRadioButton.setBounds(402, 153, 113, 23);
-		desktopPane_7.add(notemRadioButton);
-
-		JLabel lblNewLabel_9_1 = new JLabel("专业技能:");
-		lblNewLabel_9_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_9_1.setBounds(35, 328, 102, 24);
-		desktopPane_7.add(lblNewLabel_9_1);
-
-		skilltextField.setBounds(122, 328, 210, 26);
-		desktopPane_7.add(skilltextField);
-		skilltextField.setColumns(10);
-
-		JLabel lblNewLabel_9_1_1 = new JLabel("家庭住址:\r\n");
-		lblNewLabel_9_1_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_9_1_1.setBounds(343, 328, 102, 24);
-		desktopPane_7.add(lblNewLabel_9_1_1);
-
-		addresstextField.setColumns(10);
-		addresstextField.setBounds(426, 328, 210, 26);
-		desktopPane_7.add(addresstextField);
-
-		JLabel lblNewLabel_9_1_2 = new JLabel("备注:");
-		lblNewLabel_9_1_2.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_9_1_2.setBounds(35, 381, 102, 24);
-		desktopPane_7.add(lblNewLabel_9_1_2);
-
-		somethingtextField.setColumns(10);
-		somethingtextField.setBounds(83, 379, 553, 26);
-		desktopPane_7.add(somethingtextField);
-
-		JButton btnNewButton_1 = new JButton("确定");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				enterinform(ae);
+		
+		JDesktopPane desktopPane_6 = new JDesktopPane();
+		desktopPane_6.setBackground(UIManager.getColor("Button.background"));
+		tabbedPane.addTab("人事记录", new ImageIcon(Main.class.getResource("/picture/眼睛.png")), desktopPane_6, null);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane_2.setBounds(0, 0, 800, 380);
+		desktopPane_6.add(scrollPane_2);
+		
+		personneltable = new JTable();
+		personneltable.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"\u8BB0\u5F55\u7F16\u53F7", "\u5458\u5DE5\u53F7", "\u53D8\u66F4\u8BB0\u5F55"
+			}
+		));
+		personneltable.getColumnModel().getColumn(2).setPreferredWidth(630);
+		personneltable.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		personneltable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		scrollPane_2.setViewportView(personneltable);
+		
+		searchpersonnelID = new JTextField();
+		searchpersonnelID.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		searchpersonnelID.setColumns(10);
+		searchpersonnelID.setBounds(156, 419, 194, 34);
+		desktopPane_6.add(searchpersonnelID);
+		
+		JLabel lblNewLabel_16_1_1 = new JLabel("员工号:");
+		lblNewLabel_16_1_1.setIcon(new ImageIcon(Main.class.getResource("/picture/员工号.png")));
+		lblNewLabel_16_1_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_16_1_1.setBounds(43, 414, 108, 44);
+		desktopPane_6.add(lblNewLabel_16_1_1);
+		
+		
+		searchpersonnel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				searchpersonnel(e);
 			}
 		});
-		btnNewButton_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		btnNewButton_1.setBounds(270, 431, 113, 33);
-		desktopPane_7.add(btnNewButton_1);
-
-		JLabel lblNewLabel_4_1 = new JLabel("员工号:");
-		lblNewLabel_4_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_4_1.setBounds(35, 92, 70, 24);
-		desktopPane_7.add(lblNewLabel_4_1);
-
-		IDtextField.setEditable(false);
-		IDtextField.setColumns(10);
-		IDtextField.setBounds(103, 92, 90, 26);
-		desktopPane_7.add(IDtextField);
-
-		JLabel lblNewLabel_4_1_1 = new JLabel("设置密码:");
-		lblNewLabel_4_1_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_4_1_1.setBounds(236, 92, 84, 24);
-		desktopPane_7.add(lblNewLabel_4_1_1);
-
-		seTpasswordField.setBounds(323, 91, 95, 26);
-		desktopPane_7.add(seTpasswordField);
-
-		JLabel lblNewLabel_4_1_2 = new JLabel("权限级别:");
-		lblNewLabel_4_1_2.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_4_1_2.setBounds(445, 92, 91, 24);
-		desktopPane_7.add(lblNewLabel_4_1_2);
-
-		authoritytextField.setText("员工");
-		authoritytextField.setEditable(false);
-		authoritytextField.setColumns(10);
-		authoritytextField.setBounds(530, 92, 90, 26);
-		desktopPane_7.add(authoritytextField);
+		searchpersonnel.setIcon(new ImageIcon(Main.class.getResource("/picture/查询.png")));
+		searchpersonnel.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		searchpersonnel.setBounds(400, 419, 136, 34);
+		desktopPane_6.add(searchpersonnel);
+		refreshpersonnel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				resetpersonnel(e);
+			}
+		});
+		
+		
+		refreshpersonnel.setIcon(new ImageIcon(Main.class.getResource("/picture/重置.png")));
+		refreshpersonnel.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		refreshpersonnel.setBounds(571, 419, 136, 34);
+		desktopPane_6.add(refreshpersonnel);
 
 		JDesktopPane desktopPane_2 = new JDesktopPane();
 		desktopPane_2.setBackground(UIManager.getColor("Button.background"));
@@ -395,7 +259,7 @@ public class Main extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane_1.setBounds(0, 0, 703, 334);
+		scrollPane_1.setBounds(0, 0, 803, 289);
 		desktopPane_2.add(scrollPane_1);
 
 		SearchInformtable.setModel(new DefaultTableModel(new Object[][] {},
@@ -410,11 +274,11 @@ public class Main extends JFrame {
 		JLabel lblNewLabel_16 = new JLabel("员工姓名:");
 		lblNewLabel_16.setIcon(new ImageIcon(Main.class.getResource("/picture/用户名 (1).png")));
 		lblNewLabel_16.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_16.setBounds(112, 344, 114, 49);
+		lblNewLabel_16.setBounds(10, 306, 114, 49);
 		desktopPane_2.add(lblNewLabel_16);
 		searchNametextField.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 
-		searchNametextField.setBounds(283, 351, 194, 34);
+		searchNametextField.setBounds(166, 313, 194, 34);
 		desktopPane_2.add(searchNametextField);
 		searchNametextField.setColumns(10);
 
@@ -426,18 +290,18 @@ public class Main extends JFrame {
 		});
 		searchInformButton.setIcon(new ImageIcon(Main.class.getResource("/picture/查询.png")));
 		searchInformButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		searchInformButton.setBounds(544, 351, 136, 34);
+		searchInformButton.setBounds(395, 313, 136, 34);
 		desktopPane_2.add(searchInformButton);
 
 		JLabel lblNewLabel_16_1 = new JLabel("员工号:");
 		lblNewLabel_16_1.setIcon(new ImageIcon(Main.class.getResource("/picture/员工号.png")));
 		lblNewLabel_16_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_16_1.setBounds(10, 418, 108, 44);
+		lblNewLabel_16_1.setBounds(16, 373, 108, 44);
 		desktopPane_2.add(lblNewLabel_16_1);
 		deleteIdfield.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 
 		deleteIdfield.setColumns(10);
-		deleteIdfield.setBounds(112, 423, 119, 34);
+		deleteIdfield.setBounds(166, 378, 194, 34);
 		desktopPane_2.add(deleteIdfield);
 
 		deleteButton.addActionListener(new ActionListener() {
@@ -447,17 +311,220 @@ public class Main extends JFrame {
 		});
 		deleteButton.setIcon(new ImageIcon(Main.class.getResource("/picture/垃圾桶 (1).png")));
 		deleteButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		deleteButton.setBounds(544, 423, 136, 34);
+		deleteButton.setBounds(395, 410, 136, 34);
 		desktopPane_2.add(deleteButton);
 
 		JLabel lblNewLabel_16_2 = new JLabel("当前用户密码:");
 		lblNewLabel_16_2.setIcon(new ImageIcon(Main.class.getResource("/picture/钥匙 (1).png")));
 		lblNewLabel_16_2.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_16_2.setBounds(241, 416, 151, 49);
+		lblNewLabel_16_2.setBounds(10, 427, 151, 49);
 		desktopPane_2.add(lblNewLabel_16_2);
 
-		deletepasswordField.setBounds(398, 423, 119, 34);
+		deletepasswordField.setBounds(166, 438, 194, 34);
 		desktopPane_2.add(deletepasswordField);
+
+		JDesktopPane desktopPane_7 = new JDesktopPane();
+		desktopPane_7.setBackground(UIManager.getColor("Button.background"));
+		tabbedPane.addTab("信息录入", new ImageIcon(Main.class.getResource("/picture/录入 (1).png")), desktopPane_7, null);
+
+		JLabel lblNewLabel_4 = new JLabel("姓名:");
+		lblNewLabel_4.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_4.setBounds(84, 32, 58, 24);
+		desktopPane_7.add(lblNewLabel_4);
+
+		nametextField.setBounds(152, 35, 90, 26);
+		desktopPane_7.add(nametextField);
+		nametextField.setColumns(10);
+
+		JLabel lblNewLabel_5 = new JLabel("出生日期:");
+		lblNewLabel_5.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_5.setBounds(267, 31, 102, 26);
+		desktopPane_7.add(lblNewLabel_5);
+
+		yearcomboBox.setModel(new DefaultComboBoxModel(
+				new String[] { "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980",
+						"1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992",
+						"1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002" }));
+		yearcomboBox.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		yearcomboBox.setBounds(353, 33, 70, 24);
+		desktopPane_7.add(yearcomboBox);
+
+		JLabel lblNewLabel_6 = new JLabel("年\r\n");
+		lblNewLabel_6.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_6.setBounds(431, 36, 29, 20);
+		desktopPane_7.add(lblNewLabel_6);
+
+		monthcomboBox.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		monthcomboBox.setModel(new DefaultComboBoxModel(
+				new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+		monthcomboBox.setBounds(459, 33, 70, 25);
+		desktopPane_7.add(monthcomboBox);
+
+		JLabel lblNewLabel_7 = new JLabel("月");
+		lblNewLabel_7.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_7.setBounds(539, 36, 46, 23);
+		desktopPane_7.add(lblNewLabel_7);
+
+		daycomboBox.setModel(new DefaultComboBoxModel(
+				new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
+						"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+		daycomboBox.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		daycomboBox.setBounds(567, 32, 70, 26);
+		desktopPane_7.add(daycomboBox);
+
+		JLabel lblNewLabel_8 = new JLabel("日");
+		lblNewLabel_8.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_8.setBounds(647, 34, 58, 26);
+		desktopPane_7.add(lblNewLabel_8);
+
+		JLabel lblNewLabel_9 = new JLabel("所在部门:");
+		lblNewLabel_9.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_9.setBounds(84, 211, 102, 24);
+		desktopPane_7.add(lblNewLabel_9);
+		departmentcomboBox.setModel(new DefaultComboBoxModel(
+				new String[] { "--部门选择--", "总经办", "行政部", "人事部", "财务部", "技术部", "销售部", "客户服务部" }));
+
+		departmentcomboBox.setBounds(185, 211, 102, 24);
+		desktopPane_7.add(departmentcomboBox);
+
+		JLabel lblNewLabel_10 = new JLabel("职务:");
+		lblNewLabel_10.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_10.setBounds(319, 212, 78, 23);
+		desktopPane_7.add(lblNewLabel_10);
+		jobcomboBox.setModel(new DefaultComboBoxModel(new String[] { "--职务选择--", "总经理", "总经理助理", "办公室主任", "行政总监",
+				"行政经理", "行政助理", "行政专员", "人事部总监", "人事部经理", "人事专员", "首席财务官", "总会计师", "财务总监", "资金总监", "财务部经理", "审计主管",
+				"会计", "出纳员", "技术部经理", "项目经理", "工程师", "销售总监", "销售部经理", "文员", "销售员", "客户服务部经理", "客户服务员" }));
+
+		jobcomboBox.setBounds(366, 211, 107, 26);
+		desktopPane_7.add(jobcomboBox);
+
+		JLabel lblNewLabel_11 = new JLabel("性别:");
+		lblNewLabel_11.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_11.setBounds(84, 152, 58, 24);
+		desktopPane_7.add(lblNewLabel_11);
+
+		buttonGroup.add(manRadioButton);
+		manRadioButton.setBackground(UIManager.getColor("Button.background"));
+		manRadioButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		manRadioButton.setBounds(140, 151, 46, 27);
+		desktopPane_7.add(manRadioButton);
+
+		buttonGroup.add(womanRadioButton);
+		womanRadioButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		womanRadioButton.setBackground(UIManager.getColor("Button.background"));
+		womanRadioButton.setBounds(200, 148, 58, 33);
+		desktopPane_7.add(womanRadioButton);
+
+		JLabel lblNewLabel_12 = new JLabel("受教育程度:");
+		lblNewLabel_12.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_12.setBounds(483, 210, 102, 27);
+		desktopPane_7.add(lblNewLabel_12);
+		educomboBox.setModel(new DefaultComboBoxModel(
+				new String[] { "--教育程度--", "小学", "初中", "高中", "职高", "大本", "本科", "硕士", "博士", "博士后" }));
+
+		educomboBox.setBounds(595, 210, 102, 27);
+		desktopPane_7.add(educomboBox);
+
+		JLabel lblNewLabel_13 = new JLabel("联系电话:");
+		lblNewLabel_13.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_13.setBounds(392, 272, 89, 24);
+		desktopPane_7.add(lblNewLabel_13);
+
+		teltextField.setBounds(475, 274, 210, 26);
+		desktopPane_7.add(teltextField);
+		teltextField.setColumns(10);
+
+		JLabel lblNewLabel_14 = new JLabel("电子邮件:");
+		lblNewLabel_14.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_14.setBounds(85, 274, 83, 20);
+		desktopPane_7.add(lblNewLabel_14);
+
+		emailtextField.setBounds(171, 272, 210, 26);
+		desktopPane_7.add(emailtextField);
+		emailtextField.setColumns(10);
+
+		JLabel lblNewLabel_15 = new JLabel("当前状态:");
+		lblNewLabel_15.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_15.setBounds(267, 153, 78, 23);
+		desktopPane_7.add(lblNewLabel_15);
+
+		buttonGroup_1.add(isemRadioButton);
+		isemRadioButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		isemRadioButton.setBackground(UIManager.getColor("Button.background"));
+		isemRadioButton.setBounds(359, 153, 90, 23);
+		desktopPane_7.add(isemRadioButton);
+
+		buttonGroup_1.add(notemRadioButton);
+		notemRadioButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		notemRadioButton.setBackground(UIManager.getColor("Button.background"));
+		notemRadioButton.setBounds(451, 153, 113, 23);
+		desktopPane_7.add(notemRadioButton);
+
+		JLabel lblNewLabel_9_1 = new JLabel("专业技能:");
+		lblNewLabel_9_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_9_1.setBounds(84, 328, 102, 24);
+		desktopPane_7.add(lblNewLabel_9_1);
+
+		skilltextField.setBounds(171, 328, 210, 26);
+		desktopPane_7.add(skilltextField);
+		skilltextField.setColumns(10);
+
+		JLabel lblNewLabel_9_1_1 = new JLabel("家庭住址:\r\n");
+		lblNewLabel_9_1_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_9_1_1.setBounds(392, 328, 102, 24);
+		desktopPane_7.add(lblNewLabel_9_1_1);
+
+		addresstextField.setColumns(10);
+		addresstextField.setBounds(475, 328, 210, 26);
+		desktopPane_7.add(addresstextField);
+
+		JLabel lblNewLabel_9_1_2 = new JLabel("备注:");
+		lblNewLabel_9_1_2.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_9_1_2.setBounds(84, 381, 102, 24);
+		desktopPane_7.add(lblNewLabel_9_1_2);
+
+		enterinform.setEnabled(false);
+		enterinform.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				enterinform(ae);
+			}
+		});
+		enterinform.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		enterinform.setBounds(335, 441, 113, 33);
+		desktopPane_7.add(enterinform);
+
+		JLabel lblNewLabel_4_1 = new JLabel("员工号:");
+		lblNewLabel_4_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_4_1.setBounds(84, 92, 70, 24);
+		desktopPane_7.add(lblNewLabel_4_1);
+
+		IDtextField.setEditable(false);
+		IDtextField.setColumns(10);
+		IDtextField.setBounds(152, 92, 90, 26);
+		desktopPane_7.add(IDtextField);
+
+		JLabel lblNewLabel_4_1_1 = new JLabel("设置密码:");
+		lblNewLabel_4_1_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_4_1_1.setBounds(267, 92, 84, 24);
+		desktopPane_7.add(lblNewLabel_4_1_1);
+
+		seTpasswordField.setBounds(354, 90, 95, 26);
+		desktopPane_7.add(seTpasswordField);
+
+		JLabel lblNewLabel_4_1_2 = new JLabel("权限级别:");
+		lblNewLabel_4_1_2.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		lblNewLabel_4_1_2.setBounds(475, 92, 91, 24);
+		desktopPane_7.add(lblNewLabel_4_1_2);
+
+		authoritytextField.setText("员工");
+		authoritytextField.setEditable(false);
+		authoritytextField.setColumns(10);
+		authoritytextField.setBounds(567, 92, 95, 26);
+		desktopPane_7.add(authoritytextField);
+		IDtextField.setText(i.toString());
+
+		somethingtextField.setBounds(137, 381, 548, 50);
+		desktopPane_7.add(somethingtextField);
 
 		JDesktopPane desktopPane_1 = new JDesktopPane();
 		desktopPane_1.setBackground(UIManager.getColor("Button.background"));
@@ -465,16 +532,16 @@ public class Main extends JFrame {
 
 		JLabel lblNewLabel_4_3 = new JLabel("姓名:");
 		lblNewLabel_4_3.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_4_3.setBounds(32, 99, 58, 24);
+		lblNewLabel_4_3.setBounds(78, 99, 58, 24);
 		desktopPane_1.add(lblNewLabel_4_3);
 
 		change_name.setColumns(10);
-		change_name.setBounds(80, 99, 90, 26);
+		change_name.setBounds(126, 99, 90, 26);
 		desktopPane_1.add(change_name);
 
 		JLabel lblNewLabel_5_1 = new JLabel("出生日期:");
 		lblNewLabel_5_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_5_1.setBounds(215, 98, 102, 26);
+		lblNewLabel_5_1.setBounds(261, 98, 102, 26);
 		desktopPane_1.add(lblNewLabel_5_1);
 
 		changeyear.setModel(new DefaultComboBoxModel(
@@ -482,150 +549,148 @@ public class Main extends JFrame {
 						"1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992",
 						"1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002" }));
 		changeyear.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-		changeyear.setBounds(301, 100, 70, 24);
+		changeyear.setBounds(347, 100, 70, 24);
 		desktopPane_1.add(changeyear);
 
 		JLabel lblNewLabel_6_1 = new JLabel("年\r\n");
 		lblNewLabel_6_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_6_1.setBounds(379, 103, 29, 20);
+		lblNewLabel_6_1.setBounds(425, 103, 29, 20);
 		desktopPane_1.add(lblNewLabel_6_1);
 
 		changemonth.setModel(new DefaultComboBoxModel(
 				new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 		changemonth.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-		changemonth.setBounds(407, 100, 70, 25);
+		changemonth.setBounds(453, 100, 70, 25);
 		desktopPane_1.add(changemonth);
 
 		JLabel lblNewLabel_7_1 = new JLabel("月");
 		lblNewLabel_7_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_7_1.setBounds(487, 103, 46, 23);
+		lblNewLabel_7_1.setBounds(533, 103, 46, 23);
 		desktopPane_1.add(lblNewLabel_7_1);
 
 		changeday.setModel(new DefaultComboBoxModel(
 				new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 						"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 		changeday.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-		changeday.setBounds(515, 99, 70, 26);
+		changeday.setBounds(561, 99, 70, 26);
 		desktopPane_1.add(changeday);
 
 		JLabel lblNewLabel_8_1 = new JLabel("日");
 		lblNewLabel_8_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_8_1.setBounds(595, 101, 58, 26);
+		lblNewLabel_8_1.setBounds(641, 101, 58, 26);
 		desktopPane_1.add(lblNewLabel_8_1);
 
 		JLabel lblNewLabel_9_2 = new JLabel("所在部门:");
 		lblNewLabel_9_2.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_9_2.setBounds(32, 214, 102, 24);
+		lblNewLabel_9_2.setBounds(78, 214, 102, 24);
 		desktopPane_1.add(lblNewLabel_9_2);
 
 		changedepartment.setModel(new DefaultComboBoxModel(
 				new String[] { "--部门选择--", "总经办", "行政部", "人事部", "财务部", "技术部", "销售部", "客户服务部" }));
-		changedepartment.setBounds(133, 214, 102, 24);
+		changedepartment.setBounds(179, 214, 102, 24);
 		desktopPane_1.add(changedepartment);
 
 		JLabel lblNewLabel_10_1 = new JLabel("职务:");
 		lblNewLabel_10_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_10_1.setBounds(267, 215, 78, 23);
+		lblNewLabel_10_1.setBounds(313, 215, 78, 23);
 		desktopPane_1.add(lblNewLabel_10_1);
 
-		changejob.setModel(new DefaultComboBoxModel(new String[] { "--职务选择--", "总经理", "总经理助理", "办公室主任", "行政总监", "行政经理",
-				"行政助理", "行政专员", "人事部总监", "人事部经理", "人事专员", "首席财务官", "总会计师", "财务总监", "资金总监", "财务部经理", "审计主管", "会计", "出纳员",
-				"技术部经理", "项目经理", "工程师", "销售总监", "销售部经理", "文员", "销售员", "客户服务部经理", "客户服务员" }));
-		changejob.setBounds(314, 214, 107, 26);
+		changejob.setModel(new DefaultComboBoxModel(new String[] {"--职务选择--", "总经理", "总经理助理", "办公室主任", "行政总监", "行政经理", "行政助理", "行政专员", "人事部总监", "人事部经理", "人事专员", "首席财务官", "总会计师", "财务总监", "资金总监", "财务部经理", "审计主管", "会计", "出纳员", "技术部经理", "项目经理", "工程师", "销售总监", "销售部经理", "文员", "销售员", "客户服务部经理", "客户服务员"}));
+		changejob.setBounds(360, 214, 107, 26);
 		desktopPane_1.add(changejob);
 
 		JLabel lblNewLabel_11_1 = new JLabel("性别:");
 		lblNewLabel_11_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_11_1.setBounds(32, 165, 58, 24);
+		lblNewLabel_11_1.setBounds(78, 165, 58, 24);
 		desktopPane_1.add(lblNewLabel_11_1);
 
 		buttonGroup_5.add(change_man);
 		change_man.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		change_man.setBackground(SystemColor.menu);
-		change_man.setBounds(80, 164, 46, 27);
+		change_man.setBounds(126, 164, 46, 27);
 		desktopPane_1.add(change_man);
 
 		buttonGroup_5.add(change_woman);
 		change_woman.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		change_woman.setBackground(SystemColor.menu);
-		change_woman.setBounds(147, 161, 58, 33);
+		change_woman.setBounds(193, 161, 58, 33);
 		desktopPane_1.add(change_woman);
 
 		JLabel lblNewLabel_12_1 = new JLabel("受教育程度:");
 		lblNewLabel_12_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_12_1.setBounds(439, 214, 102, 27);
+		lblNewLabel_12_1.setBounds(485, 214, 102, 27);
 		desktopPane_1.add(lblNewLabel_12_1);
 
 		changeedu.setModel(new DefaultComboBoxModel(
 				new String[] { "--教育程度--", "小学", "初中", "高中", "职高", "大专", "本科", "硕士", "博士", "博士后" }));
-		changeedu.setBounds(551, 214, 102, 27);
+		changeedu.setBounds(594, 214, 102, 27);
 		desktopPane_1.add(changeedu);
 
 		JLabel lblNewLabel_13_1 = new JLabel("联系电话:");
 		lblNewLabel_13_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_13_1.setBounds(267, 268, 89, 24);
+		lblNewLabel_13_1.setBounds(387, 268, 89, 24);
 		desktopPane_1.add(lblNewLabel_13_1);
 
 		changetele.setColumns(10);
-		changetele.setBounds(353, 268, 113, 27);
+		changetele.setBounds(486, 270, 210, 27);
 		desktopPane_1.add(changetele);
 
 		JLabel lblNewLabel_14_1 = new JLabel("电子邮件:");
 		lblNewLabel_14_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_14_1.setBounds(32, 270, 83, 20);
+		lblNewLabel_14_1.setBounds(78, 270, 83, 20);
 		desktopPane_1.add(lblNewLabel_14_1);
 
 		changeemail.setColumns(10);
-		changeemail.setBounds(133, 268, 90, 27);
+		changeemail.setBounds(162, 268, 210, 27);
 		desktopPane_1.add(changeemail);
 
 		JLabel lblNewLabel_15_1 = new JLabel("当前状态:");
 		lblNewLabel_15_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_15_1.setBounds(215, 166, 78, 23);
+		lblNewLabel_15_1.setBounds(261, 166, 78, 23);
 		desktopPane_1.add(lblNewLabel_15_1);
 
 		buttonGroup_4.add(change_is_em);
 		change_is_em.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		change_is_em.setBackground(SystemColor.menu);
-		change_is_em.setBounds(301, 166, 90, 23);
+		change_is_em.setBounds(347, 166, 90, 23);
 		desktopPane_1.add(change_is_em);
 
 		buttonGroup_4.add(change_not_em);
 		change_not_em.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		change_not_em.setBackground(SystemColor.menu);
-		change_not_em.setBounds(393, 166, 113, 23);
+		change_not_em.setBounds(439, 166, 113, 23);
 		desktopPane_1.add(change_not_em);
 
 		JLabel lblNewLabel_9_1_3 = new JLabel("专业技能:");
 		lblNewLabel_9_1_3.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_9_1_3.setBounds(32, 319, 102, 24);
+		lblNewLabel_9_1_3.setBounds(78, 319, 102, 24);
 		desktopPane_1.add(lblNewLabel_9_1_3);
 
 		changeskill.setColumns(10);
-		changeskill.setBounds(117, 317, 210, 26);
+		changeskill.setBounds(163, 317, 210, 26);
 		desktopPane_1.add(changeskill);
 
 		JLabel lblNewLabel_9_1_1_1 = new JLabel("家庭住址:\r\n");
 		lblNewLabel_9_1_1_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_9_1_1_1.setBounds(341, 319, 102, 24);
+		lblNewLabel_9_1_1_1.setBounds(387, 319, 102, 24);
 		desktopPane_1.add(lblNewLabel_9_1_1_1);
 
 		changeaddress.setColumns(10);
-		changeaddress.setBounds(422, 317, 210, 26);
+		changeaddress.setBounds(485, 317, 210, 26);
 		desktopPane_1.add(changeaddress);
 
 		JLabel lblNewLabel_9_1_2_1 = new JLabel("备注:");
 		lblNewLabel_9_1_2_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_9_1_2_1.setBounds(32, 371, 102, 24);
+		lblNewLabel_9_1_2_1.setBounds(78, 371, 102, 24);
 		desktopPane_1.add(lblNewLabel_9_1_2_1);
 
 		changenote.setColumns(10);
-		changenote.setBounds(79, 374, 553, 26);
+		changenote.setBounds(125, 374, 571, 46);
 		desktopPane_1.add(changenote);
 
 		JLabel lblNewLabel_4_1_3 = new JLabel("目标员工号:");
 		lblNewLabel_4_1_3.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		lblNewLabel_4_1_3.setBounds(32, 25, 107, 24);
+		lblNewLabel_4_1_3.setBounds(78, 25, 107, 24);
 		desktopPane_1.add(lblNewLabel_4_1_3);
 		changebutton.setEnabled(false);
 		changebutton.addActionListener(new ActionListener() {
@@ -635,11 +700,11 @@ public class Main extends JFrame {
 		});
 
 		changebutton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		changebutton.setBounds(278, 430, 113, 33);
+		changebutton.setBounds(341, 435, 113, 33);
 		desktopPane_1.add(changebutton);
 
 		changed_id.setColumns(10);
-		changed_id.setBounds(133, 25, 90, 26);
+		changed_id.setBounds(179, 25, 90, 26);
 		desktopPane_1.add(changed_id);
 		changetarget.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -648,7 +713,7 @@ public class Main extends JFrame {
 		});
 
 		changetarget.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		changetarget.setBounds(267, 25, 113, 26);
+		changetarget.setBounds(313, 25, 113, 26);
 		desktopPane_1.add(changetarget);
 
 		JDesktopPane desktopPane_3 = new JDesktopPane();
@@ -657,44 +722,45 @@ public class Main extends JFrame {
 
 		JLabel lblNewLabel_4_2 = new JLabel("当前权限:");
 		lblNewLabel_4_2.setFont(new Font("微软雅黑", Font.BOLD, 20));
-		lblNewLabel_4_2.setBounds(22, 18, 91, 24);
+		lblNewLabel_4_2.setBounds(61, 18, 91, 24);
 		desktopPane_3.add(lblNewLabel_4_2);
 
 		authoritytype.setFont(new Font("微软雅黑", Font.BOLD, 18));
-		authoritytype.setBounds(116, 10, 477, 40);
+		authoritytype.setBounds(155, 10, 477, 40);
 		desktopPane_3.add(authoritytype);
 
 		JLabel lblNewLabel_4_2_1 = new JLabel("目标员工姓名:");
 		lblNewLabel_4_2_1.setFont(new Font("微软雅黑", Font.BOLD, 20));
-		lblNewLabel_4_2_1.setBounds(22, 151, 134, 24);
+		lblNewLabel_4_2_1.setBounds(61, 151, 134, 24);
 		desktopPane_3.add(lblNewLabel_4_2_1);
 
 		impowerName.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		impowerName.setBounds(179, 147, 162, 33);
+		impowerName.setBounds(218, 147, 162, 33);
 		desktopPane_3.add(impowerName);
 		impowerName.setColumns(10);
 
 		buttonGroup_3.add(impowerwomanRadioButton);
 		impowerwomanRadioButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		impowerwomanRadioButton.setBackground(SystemColor.menu);
-		impowerwomanRadioButton.setBounds(448, 148, 58, 33);
+		impowerwomanRadioButton.setBounds(487, 148, 58, 33);
 		desktopPane_3.add(impowerwomanRadioButton);
 
 		buttonGroup_3.add(impowermanRadioButton);
 		impowermanRadioButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		impowermanRadioButton.setBackground(SystemColor.menu);
-		impowermanRadioButton.setBounds(376, 151, 46, 27);
+		impowermanRadioButton.setBounds(415, 151, 46, 27);
 		desktopPane_3.add(impowermanRadioButton);
 
 		JLabel lblNewLabel_4_2_1_1 = new JLabel("目标员工号:");
 		lblNewLabel_4_2_1_1.setFont(new Font("微软雅黑", Font.BOLD, 20));
-		lblNewLabel_4_2_1_1.setBounds(22, 78, 119, 24);
+		lblNewLabel_4_2_1_1.setBounds(61, 78, 119, 24);
 		desktopPane_3.add(lblNewLabel_4_2_1_1);
 
 		impowerId.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		impowerId.setColumns(10);
-		impowerId.setBounds(179, 75, 162, 33);
+		impowerId.setBounds(218, 75, 162, 33);
 		desktopPane_3.add(impowerId);
+		impowerButton.setEnabled(false);
 
 		impowerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -702,23 +768,24 @@ public class Main extends JFrame {
 			}
 		});
 		impowerButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		impowerButton.setBounds(141, 399, 169, 33);
+		impowerButton.setBounds(186, 399, 169, 33);
 		desktopPane_3.add(impowerButton);
 
 		JLabel lblNewLabel_4_2_1_2 = new JLabel("当前用户密码:");
 		lblNewLabel_4_2_1_2.setFont(new Font("微软雅黑", Font.BOLD, 20));
-		lblNewLabel_4_2_1_2.setBounds(22, 237, 131, 33);
+		lblNewLabel_4_2_1_2.setBounds(64, 233, 131, 33);
 		desktopPane_3.add(lblNewLabel_4_2_1_2);
 
-		JButton impowerButton_1 = new JButton("取消管理员权限");
-		impowerButton_1.addActionListener(new ActionListener() {
+		JButton deprivepower = new JButton("取消管理员权限");
+		deprivepower.setEnabled(false);
+		deprivepower.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deprivePower(e);
 			}
 		});
-		impowerButton_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		impowerButton_1.setBounds(357, 399, 169, 33);
-		desktopPane_3.add(impowerButton_1);
+		deprivepower.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		deprivepower.setBounds(403, 399, 169, 33);
+		desktopPane_3.add(deprivepower);
 
 		JDesktopPane desktopPane_4 = new JDesktopPane();
 		tabbedPane.addTab("账号设置\r\n", new ImageIcon(Main.class.getResource("/picture/账号设置.png")), desktopPane_4, null);
@@ -727,23 +794,23 @@ public class Main extends JFrame {
 		JLabel lblNewLabel = new JLabel("原密码");
 		lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/picture/密码 (1).png")));
 		lblNewLabel.setFont(new Font("微软雅黑", Font.BOLD, 18));
-		lblNewLabel.setBounds(169, 104, 108, 34);
+		lblNewLabel.setBounds(215, 104, 108, 34);
 		desktopPane_4.add(lblNewLabel);
 
 		oldpasswordField = new JTextField();
-		oldpasswordField.setBounds(295, 109, 156, 29);
+		oldpasswordField.setBounds(341, 109, 156, 29);
 		desktopPane_4.add(oldpasswordField);
 		oldpasswordField.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("新密码");
 		lblNewLabel_1.setIcon(new ImageIcon(Main.class.getResource("/picture/钥匙.png")));
 		lblNewLabel_1.setFont(new Font("微软雅黑", Font.BOLD, 18));
-		lblNewLabel_1.setBounds(172, 160, 91, 31);
+		lblNewLabel_1.setBounds(218, 160, 91, 31);
 		desktopPane_4.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("确认密码");
 		lblNewLabel_2.setFont(new Font("微软雅黑", Font.BOLD, 18));
-		lblNewLabel_2.setBounds(190, 217, 79, 34);
+		lblNewLabel_2.setBounds(236, 217, 79, 34);
 		desktopPane_4.add(lblNewLabel_2);
 
 		confirmButton.addActionListener(new ActionListener() {
@@ -752,25 +819,25 @@ public class Main extends JFrame {
 			}
 		});
 		confirmButton.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		confirmButton.setBounds(264, 299, 114, 34);
+		confirmButton.setBounds(310, 299, 114, 34);
 		desktopPane_4.add(confirmButton);
 
 		JLabel NowUserlabel = new JLabel("当前用户");
 		NowUserlabel.setFont(new Font("微软雅黑", Font.BOLD, 18));
-		NowUserlabel.setBounds(10, 0, 99, 42);
+		NowUserlabel.setBounds(56, 0, 99, 42);
 		desktopPane_4.add(NowUserlabel);
 
 		newpasswordField = new JPasswordField();
-		newpasswordField.setBounds(295, 164, 156, 29);
+		newpasswordField.setBounds(341, 164, 156, 29);
 		desktopPane_4.add(newpasswordField);
 
 		confirmpasswordField = new JPasswordField();
-		confirmpasswordField.setBounds(295, 218, 156, 31);
+		confirmpasswordField.setBounds(341, 218, 156, 29);
 		desktopPane_4.add(confirmpasswordField);
 
 		JLabel nowUsertype = new JLabel("");
 		nowUsertype.setFont(new Font("微软雅黑", Font.BOLD, 18));
-		nowUsertype.setBounds(101, 5, 477, 32);
+		nowUsertype.setBounds(147, 5, 477, 32);
 		desktopPane_4.add(nowUsertype);
 
 		JDesktopPane desktopPane_5 = new JDesktopPane();
@@ -779,7 +846,7 @@ public class Main extends JFrame {
 
 		JInternalFrame internalFrame = new JInternalFrame("退出系统");
 		internalFrame.setFrameIcon(new ImageIcon(Main.class.getResource("/picture/推出.png")));
-		internalFrame.setBounds(177, 87, 302, 248);
+		internalFrame.setBounds(183, 91, 330, 279);
 		desktopPane_5.add(internalFrame);
 
 		JLabel lblNewLabel_3 = new JLabel("确定退出系统吗？");
@@ -793,21 +860,26 @@ public class Main extends JFrame {
 		});
 		btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 		GroupLayout groupLayout = new GroupLayout(internalFrame.getContentPane());
-		groupLayout
-				.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup().addContainerGap(75, Short.MAX_VALUE)
-								.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 158,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(57))
-						.addGroup(Alignment.LEADING,
-								groupLayout
-										.createSequentialGroup().addGap(92).addComponent(btnNewButton,
-												GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(101, Short.MAX_VALUE)));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup().addGap(48)
-						.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addGap(35).addComponent(btnNewButton).addContainerGap(67, Short.MAX_VALUE)));
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(104)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(81, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(85, Short.MAX_VALUE)
+					.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
+					.addGap(75))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(66)
+					.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+					.addGap(52)
+					.addComponent(btnNewButton)
+					.addContainerGap(63, Short.MAX_VALUE))
+		);
 		internalFrame.getContentPane().setLayout(groupLayout);
 		internalFrame.setVisible(true);
 		if ("管理员".equals(this.userType.getName())) {
@@ -817,27 +889,46 @@ public class Main extends JFrame {
 			em = (employee) this.userObject;
 			nowUsertype.setText("[" + this.userType.getName().toString() + "]:" + em.getName());
 		}
-		setTable();
+		if (this.userType.toString().equals("管理员")) {
+			setTable(informtable);
+			setTable(SearchInformtable);
+			setpersonneltable();
+		}
+
 		Integer i = new Integer(ID);
-		IDtextField.setText(i.toString());
 		authoritytype.setText("[" + this.userType.getName() + "]");
 
-		Adminpasswd.setBounds(181, 237, 162, 33);
+		Adminpasswd.setBounds(218, 233, 162, 33);
 		desktopPane_3.add(Adminpasswd);
+
+		if (this.userType.toString().equals("管理员")) {
+			enterinform.setEnabled(true);
+		}
+		if (this.userType.toString().equals("管理员")) {
+			impowerButton.setEnabled(true);
+		}
+		if (this.userType.toString().equals("管理员")) {
+			deprivepower.setEnabled(true);
+		}
 	}
 
-	protected void changeInform(ActionEvent e) {
+
+	//修改人事信息
+	 protected void changeInform(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if (!changejob.getSelectedItem().toString().equals(to_be_change.getJob())) {
+		if ((changejob.getSelectedIndex() - 1) != to_be_change.getJob()) {
 			personnel_change change = new personnel_change();
 			Personnel personnel = new Personnel();
 			Counter count = new Counter();
-			change.update(count.getCounter("C"), to_be_change.getId(), personnel.getPersonnel("职务变动"), "职务变动");
+			change.update(count.getCounter("C"), to_be_change.getId(), personnel.getPersonnel("职务变动"), "职务变动："+changejob.getItemAt(to_be_change.getJob()+1).toString()+"->"+changejob.getSelectedItem().toString());
 			count.updateCounter("C");
+			setpersonneltable();
 		}
 		if (change_name.getText().toString().equals("") || changeaddress.getText().toString().equals("")
 				|| changeemail.getText().toString().equals("") || changenote.getText().toString().equals("")
-				|| changeskill.getText().toString().equals("") || changetele.getText().toString().equals(""))
+				|| changeskill.getText().toString().equals("") || changetele.getText().toString().equals("")) {
+			JOptionPane.showMessageDialog(this, "请填写完整信息！");
+		}
 			to_be_change.setName(change_name.getText().toString());
 		to_be_change.setBirth(changeyear.getSelectedItem().toString() + "-" + changemonth.getSelectedItem().toString()
 				+ "-" + changeday.getSelectedItem().toString());
@@ -871,11 +962,23 @@ public class Main extends JFrame {
 		changejob.setSelectedIndex(0);
 		changeedu.setSelectedIndex(0);
 		changebutton.setEnabled(false);
+		setTable(informtable);
+		setTable(SearchInformtable);
 	}
-
+   
+	 //设置修改信息窗口
 	protected void set_change_inform(ActionEvent e) {
 		// TODO Auto-generated method stub
 		int id = Integer.parseInt(changed_id.getText().toString());
+		if (this.userType.toString().equals("员工") && em.getId() != id) {
+			JOptionPane.showMessageDialog(this, "你没有权限进行此操作！");
+			return;
+		}
+		Counter count=new Counter();
+		if(id>=count.getCounter("P")) {
+			JOptionPane.showMessageDialog(this,"目标员工不存在！");
+			return;
+		}
 		informEnter temp = new informEnter();
 		to_be_change = temp.searchInform(id);
 		String[] s = to_be_change.getBirth().split("-");
@@ -897,7 +1000,9 @@ public class Main extends JFrame {
 		changenote.setText(to_be_change.getNote());
 		changebutton.setEnabled(true);
 	}
-
+ 
+	
+	//删除人事信息
 	protected void deleteInform(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if ("管理员".equals(this.userType.toString())) {
@@ -908,6 +1013,7 @@ public class Main extends JFrame {
 				informEnter temp = new informEnter();
 				int id = Integer.parseInt(deleteIdfield.getText().toString());
 				temp.deleteInform(id);
+				JOptionPane.showMessageDialog(this,"删除成功！");
 				Personnel person = new Personnel();
 				personnel_change change = new personnel_change();
 				Counter count = new Counter();
@@ -915,16 +1021,17 @@ public class Main extends JFrame {
 				count.updateCounter("C");
 				deleteIdfield.setText("");
 				deletepasswordField.setText("");
-				setTable();
-				DefaultTableModel dft = (DefaultTableModel) informtable.getModel();
-				dft.setRowCount(0);
+				setTable(informtable);
+				setTable(SearchInformtable);
+				setpersonneltable();
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, "你无权进行此操作！");
 			return;
 		}
 	}
-
+       
+	//取消管理员权限
 	protected void deprivePower(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if ("".equals(impowerId.getText().toString()) || "".equals(impowerName.getText().toString())
@@ -947,7 +1054,7 @@ public class Main extends JFrame {
 					impowermanRadioButton.isSelected() ? impowermanRadioButton.getText().toString()
 							: impowerwomanRadioButton.getText().toString());
 			JOptionPane.showMessageDialog(this, str);
-			setTable();
+			setTable(informtable);
 		}
 		impowerId.setText("");
 		impowerName.setText("");
@@ -955,6 +1062,7 @@ public class Main extends JFrame {
 		buttonGroup_3.clearSelection();
 	}
 
+	//授予管理员权限
 	protected void impower(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if ("".equals(impowerId.getText().toString()) || "".equals(impowerName.getText().toString())
@@ -974,17 +1082,24 @@ public class Main extends JFrame {
 					impowermanRadioButton.isSelected() ? impowermanRadioButton.getText().toString()
 							: impowerwomanRadioButton.getText().toString());
 			JOptionPane.showMessageDialog(this, str);
-			setTable();
+			setTable(informtable);
 		}
 		impowerId.setText("");
 		impowerName.setText("");
 		Adminpasswd.setText("");
 		buttonGroup_3.clearSelection();
 	}
-
+    
+	//查询人事信息
 	protected void searchInformtable(ActionEvent ae) {
 		// TODO Auto-generated method stub
 		DefaultTableModel dft = (DefaultTableModel) SearchInformtable.getModel();
+		if (this.userType.toString().equals("员工") && !em.getName().equals(searchNametextField.getText().toString())) {
+			JOptionPane.showMessageDialog(this, "你没有权限查看他人信息！");
+			searchNametextField.setText("");
+			dft.setRowCount(0);
+			return;
+		}
 		dft.setRowCount(0);
 		informEnter informtemp = new informEnter();
 		List<inform> list = informtemp.searchInform(searchNametextField.getText().toString());
@@ -1009,9 +1124,47 @@ public class Main extends JFrame {
 		searchNametextField.setText("");
 		buttonGroup_2.clearSelection();
 	}
-
-	private void setTable() {
-		DefaultTableModel dft = (DefaultTableModel) informtable.getModel();
+	
+	//查询人事变动记录并设置表格
+	protected void searchpersonnel(ActionEvent e) {
+		// TODO Auto-generated method stub
+		Personnel personnel=new Personnel();
+		List<Personnel> list=personnel.searchpersonnelList(Integer.parseInt(searchpersonnelID.getText()));
+		DefaultTableModel dft = (DefaultTableModel) personneltable.getModel();
+    	dft.setRowCount(0);
+    	for(Personnel temp:list) {
+    		Vector v=new Vector<>();
+    		v.add(temp.getId());
+    		v.add(temp.getPerson());
+    		v.add(temp.getDescription());
+    		dft.addRow(v);
+    	}
+	}
+	
+	protected void resetpersonnel(ActionEvent e) {
+		// TODO Auto-generated method stub
+		setpersonneltable();
+		searchpersonnelID.setText("");
+	}
+	
+	//设置人事变动记录表
+    private void setpersonneltable() {
+    	DefaultTableModel dft = (DefaultTableModel) personneltable.getModel();
+    	dft.setRowCount(0);
+    	Personnel  persontemp=new Personnel();
+    	List<Personnel> list=persontemp.getpersonnelList();
+    	for(Personnel temp:list) {
+    		Vector v=new Vector<>();
+    		v.add(temp.getId());
+    		v.add(temp.getPerson());
+    		v.add(temp.getDescription());
+    		dft.addRow(v);
+    	}
+    }
+    
+    //设置人事信息表
+	private void setTable(JTable table) {
+		DefaultTableModel dft = (DefaultTableModel) table.getModel();
 		dft.setRowCount(0);
 		informEnter informtemp = new informEnter();
 		List<inform> list = informtemp.getinformList();
@@ -1034,7 +1187,8 @@ public class Main extends JFrame {
 			dft.addRow(v);
 		}
 	}
-
+   
+	//保存人事信息
 	protected void enterinform(ActionEvent ae) {
 		// TODO Auto-generated method stub
 		String name = nametextField.getText();
@@ -1096,8 +1250,12 @@ public class Main extends JFrame {
 		personnel_change change = new personnel_change();
 		change.update(id.getCounter("C"), ID, person.getPersonnel("新员工加入"), "新员工加入");
 		id.updateCounter("C");
+		setTable(informtable);
+		setTable(SearchInformtable);
+		setpersonneltable();
 	}
 
+	//修改密码
 	protected void Changepassword(ActionEvent ae) {
 		String oldpasswd = oldpasswordField.getText().toString();
 		String newpasswd = newpasswordField.getText().toString();
@@ -1141,11 +1299,13 @@ public class Main extends JFrame {
 				employeetemp.setPassword(oldpasswd);
 				JOptionPane.showMessageDialog(this, emlogin.editpassword2(employeetemp, newpasswd));
 			}
+			oldpasswordField.setText("");
+			newpasswordField.setText("");
+			confirmpasswordField.setText("");
 			return;
 		} else {
 			JOptionPane.showMessageDialog(this, "两次输入的新密码不同！");
 			return;
 		}
-
 	}
 }
